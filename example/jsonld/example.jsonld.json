@@ -1,0 +1,8 @@
+{
+    "@context": {
+	"feature": "http://services.gannettdigital.com/vocab/featureFlags#",
+	"lotteryWidgetFlag": "feature:lotteryWidgetFlag"
+    },
+    "@id": "http://www.indystar.com",
+    "lotteryWidgetFlag": true
+}
