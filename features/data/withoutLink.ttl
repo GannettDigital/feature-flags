@@ -1,0 +1,9 @@
+@prefix feature: <http://services.gannettdigital.com/vocab/featureFlags#> .
+@prefix example: <http://example.com/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+example:testFlag 
+  rdfs:label "testFlag" ;
+  a feature:Flag .
+

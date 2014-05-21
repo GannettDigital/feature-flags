@@ -12,7 +12,6 @@ Scenario: Ticket URL is missing
    The feature flag called "testFlag" does not have a ticket link
    """
 
-
 Scenario: Ticket URL is available
    Given I have feature flag called "testFlag" data with a ticket link
    And I run the linter
