@@ -6,7 +6,7 @@
    uscp:LotteryWidget true;
 
 
-uscp:LotteryWidget
+uscp:lotteryWidget
    a feature:Flag ;
    feature:ticket <https://gannett.jira.com/browse/GDPREL-2383> ;
    rdfs:label "USCP - Lottery Widget" .
