@@ -1,0 +1,20 @@
+@prefix feature: <http://services.gannettdigital.com/vocab/featureFlags#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+feature:Flag a owl:Class ;
+ rdf:subClassOf owl:DataProperty ;
+ rdfs:range xsd:boolean ;
+ rdfs:comment "A property that is feature flag" .
+
+
+feature:Ticket a owl:Class .
+
+
+feature:ticket a rdf:Class ;
+ rdfs:range feature:Ticket ;
+ owl:maxCardinality 1 ; 
+ rdfs:comment "The ticket URL for the feature" .

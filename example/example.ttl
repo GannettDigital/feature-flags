@@ -1,0 +1,33 @@
+@prefix feature: <http://services.gannettdigital.com/vocab/featureFlags#> .
+@prefix uscp: <https://projects.gannettdigital.com/GDPWEB/#> .
+
+
+<http://www.usatoday.com/> 
+   uscp:LotteryWidget true;
+
+
+uscp:LotteryWidget
+   a feature:Flag ;
+   feature:ticket <https://gannett.jira.com/browse/GDPREL-2383> ;
+   rdfs:label "USCP - Lottery Widget" .
+
+
+
+
+
+###################################################################
+## Added to the triplestore using the Jira API
+###################################################################
+<https://gannett.jira.com/browse/GDPWEB-1968> 
+  a feature:Ticket ;
+  rdfs:label "USCP - Lottery Widget" ;
+  rdfs:comment "As a Publisher, I want to display lottery jackpots through an ad position in a right-rail module so that I can support a strategic partnership with my local lottery.
+==============
+Test Notes
+==============
+The following module needs to be created for testing the module: \"Lottery Widget\"
+The module needs to be setup on a front, with the following config data:
+<config><item name=\"layout_type\" value=\"sidebar\" /><item name=\"placement\" value=\"fixed\" /></config>
+Preferably place this module at the top of the sidebar for testing.
+Any questions or concerns with Presto setup, please see Roc's Dev Presto instance, Roc_Front Hero 1 Up layout for correct setup." .
+
