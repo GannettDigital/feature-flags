@@ -1,11 +1,11 @@
 install: test
-	pip install -e .
+	pip install .
 
 uninstall:
 	pip uninstall feature-flags
 
 dev: 
-	python setup.py develop
+	pip install -e .
 
 test: dev
 	pip install pytest
