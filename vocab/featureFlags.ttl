@@ -14,7 +14,11 @@ feature:Flag a owl:Class ;
 feature:Ticket a owl:Class .
 
 
-feature:ticket a rdf:Class ;
+feature:flags a owl:ObjectProperty ;
+  rdfs:comment "The feature flags object" .
+
+
+feature:ticket a owl:ObjectProperty ;
  rdfs:range feature:Ticket ;
  owl:maxCardinality 1 ; 
  rdfs:comment "The ticket URL for the feature" .
