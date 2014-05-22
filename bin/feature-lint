@@ -38,7 +38,6 @@ def _validate_ticket_links(graph):
 def main(format):
     graph = Graph()
     graph.parse(sys.stdin, format=format)
-    print graph.serialize(format="turtle")
     errors = chain(
         _validate_ticket_links(graph),
     )
