@@ -4,7 +4,6 @@
 	"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
 	"feature:ticket": {"@type": "@id"},
 	"example": "http://example.com/"
-	"flags": "feature:flags"
     },
 
     "feature:flagClasses": [

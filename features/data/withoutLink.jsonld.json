@@ -5,7 +5,7 @@
 	"feature:ticket": {"@type": "@id"},
 	"example": "http://example.com/"
     },
-    "@graph": [
+    "feature:flagClasses": [
 	{
 	    "@id": "example:testFlag",
 	    "@type": "feature:Flag",

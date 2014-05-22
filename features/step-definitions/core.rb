@@ -1,9 +1,8 @@
-
-
+require "open3"
 
 When(/^I run the command: "(.*?)"$/) do |cmd|
-  @output = `#{cmd}`
-  @pid = $?
+  _, @output, pid = Open3.capture3(cmd)
+  @exitstatus = pid.exitstatus
 end
 
 Then(/^I want to see the following error:$/) do |string|
@@ -11,9 +10,9 @@ Then(/^I want to see the following error:$/) do |string|
 end 
 
 Then(/^the process should fail$/) do
-  @pid.exitstatus.should_not == 0
+  @exitstatus.should_not == 0
 end
 
 Then(/^I want the process to succeed$/) do
-  @pid.exitstatus.should == 0
+  @exitstatus.should == 0
 end
