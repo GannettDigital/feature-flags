@@ -2,14 +2,14 @@
     "@context": {
 	"feature": "http://services.gannettdigital.com/vocab/featureFlags#",
 	"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-	"feature:ticket": {"@type": "@id"}
+	"feature:ticket": {"@type": "@id"},
+	"example": "http://example.com/"
     },
     "@graph": [
 	{
-	    "@id": "uscp:lotteryWidgetFlag",
+	    "@id": "example:testFlag",
 	    "@type": "feature:Flag",
-	    "feature:ticket": "https://gannett.jira.com/browse/GDPREL-2383",
-	    "rdfs:label": "USCP - Lottery Widget"
+	    "rdfs:label": "testFlag"
 	}
     ]
 }

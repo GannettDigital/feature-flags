@@ -1,0 +1,18 @@
+{
+    "@context": {
+	"feature": "http://services.gannettdigital.com/vocab/featureFlags#",
+	"rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+	"feature:ticket": {"@type": "@id"},
+	"example": "http://example.com/"
+	"flags": "feature:flags"
+    },
+
+    "feature:flagClasses": [
+	{
+	    "@id": "example:testFlag",
+	    "@type": "feature:Flag",
+	    "feature:ticket": "http://example.com/ticket-1",
+	    "rdfs:label": "testFlag"
+	}
+    ]
+}

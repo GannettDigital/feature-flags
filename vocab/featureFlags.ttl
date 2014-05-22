@@ -4,6 +4,10 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+<http://services.gannettdigital.com/vocab/featureFlags> a owl:Ontology ;
+  dc:title "Feature flags vocabulary"
+  dc:description "An ontology for feature flags"
+
 
 feature:Flag a owl:Class ;
  rdf:subClassOf owl:DataProperty ;
@@ -15,7 +19,12 @@ feature:Ticket a owl:Class .
 
 
 feature:flags a owl:ObjectProperty ;
-  rdfs:comment "The feature flags object" .
+ rdfs:comment "The feature flags object" .
+
+
+feature:flagClasses a owl:ObjectProperty ;
+ rdfs:range feature:Flag ;
+ rdfs:comment "A relationship to flag class definitions"
 
 
 feature:ticket a owl:ObjectProperty ;

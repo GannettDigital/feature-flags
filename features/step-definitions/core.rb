@@ -1,22 +1,19 @@
 
-Given(/^I have feature flag called "testFlag" data without a ticket link$/) do 
-  @testFile = "./features/data/withoutLink.ttl"
-end
 
-Given(/^I run the linter$/) do
-  @output = `cat #{@testFile} | feature-lint`
+
+When(/^I run the command: "(.*?)"$/) do |cmd|
+  @output = `#{cmd}`
   @pid = $?
 end
 
-Then(/^I want so see the the following error:$/) do |string|
-  expect(@output).to include(string)
+Then(/^I want to see the following error:$/) do |string|
+  @output.should include(string)  
+end 
+
+Then(/^the process should fail$/) do
   @pid.exitstatus.should_not == 0
 end
 
-Given(/^I have feature flag called "(.*?)" data with a ticket link$/) do |arg1|
-  @testFile = "./features/data/withLink.ttl"
-end
-
-Then(/^I don't see an error\.$/) do
+Then(/^I want the process to succeed$/) do
   @pid.exitstatus.should == 0
 end
