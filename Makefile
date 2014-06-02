@@ -12,4 +12,5 @@ test: dev
 	py.test --doctest-modules feature_flags
 
 acceptance:
-	cucumber --no-color
+	cucumber --no-color --tags ~@dev
+
