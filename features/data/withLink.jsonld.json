@@ -6,7 +6,7 @@
 	"example": "http://example.com/"
     },
 
-    "feature:flagClasses": [
+    "feature:flagProperties": [
 	{
 	    "@id": "example:testFlag",
 	    "@type": "feature:Flag",

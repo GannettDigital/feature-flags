@@ -22,9 +22,9 @@ feature:flags a owl:ObjectProperty ;
  rdfs:comment "The feature flags object" .
 
 
-feature:flagClasses a owl:ObjectProperty ;
+feature:flagProperties a owl:ObjectProperty ;
  rdfs:range feature:Flag ;
- rdfs:comment "A relationship to flag class definitions"
+ rdfs:comment "A relationship to flag property definitions"
 
 
 feature:ticket a owl:ObjectProperty ;
