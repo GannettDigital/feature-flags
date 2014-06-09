@@ -1,0 +1,16 @@
+{
+    "@context": {
+  	"feature": "http://services.gannettdigital.com/vocab/featureFlags#",
+  	"flags": "feature:flags",
+  	"example": "http://example.com/",
+  	"flag1": "feature:flag1",
+  	"flag2": "feature:flag2",
+  	"flag3": "feature:flag3"
+    },
+    "@id": "http://example.com/#obj",
+    "flags": {
+      "flag1": true,
+      "flag2": false,
+      "flag3": false
+    }
+}

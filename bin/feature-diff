@@ -1,0 +1,88 @@
+#!/usr/bin/env python
+"""
+The feature flag diff
+"""
+import click
+from rdflib import Graph, BNode, Namespace, Literal
+from collections import defaultdict
+import sys
+
+feature = Namespace("http://services.gannettdigital.com/vocab/featureFlags#")
+
+def _query_flag_state(graph):
+    return graph.query(
+            """
+            PREFIX feature: <http://services.gannettdigital.com/vocab/featureFlags#>
+
+            SELECT ?subject ?flag ?flagEnabled
+            WHERE
+            {
+               ?subject feature:flags ?flags .
+               ?flags ?flag ?flagEnabled
+            }
+            """
+    )
+
+
+def _index_flag_state(records, key, index):
+    for record in records:
+        index[(record.subject, record.flag)][key] = record.flagEnabled
+
+
+def _index_changed(index):
+    for data in index.itervalues():
+        data['changed'] = data.get('before', False) != data.get('after', False)
+
+
+@click.command()
+@click.option('--format', '-f', default="turtle", help="RDF format")
+@click.option('--out-format', '-f', default="turtle", help="RDF format")
+@click.argument('before_filename')
+@click.argument('after_filename')
+def main(format, out_format, before_filename, after_filename):
+
+    before = Graph()
+    with open(before_filename) as fh:
+        before.parse(fh, format=format)
+    
+    after = Graph()
+    with open(after_filename) as fh:
+        after.parse(fh, format=format)
+
+
+    index = defaultdict(dict)
+    _index_flag_state(_query_flag_state(before), 'before', index)
+    _index_flag_state(_query_flag_state(after), 'after', index)
+    _index_changed(index)
+
+
+    out = Graph(namespace_manager=after.namespace_manager)
+
+    # create a bnode for the flags
+    subject_flags_index = defaultdict(BNode)
+    for (subject, flag), data in index.iteritems():
+        if data.get('changed'):
+            subject_flags = subject_flags_index[subject]
+
+            # make sure the flags bnode exists
+            out.add(
+                (subject, 
+                 feature.flags,
+                 subject_flags)
+                )
+
+            # add the after value to the out graph
+            out.add(
+                (subject_flags,
+                 flag,
+                 data.get('after', Literal(False))
+                )
+            )
+    
+    print out.serialize(format=out_format)
+    exitcode = 0
+    sys.exit(exitcode)
+
+
+if __name__ == '__main__':
+    main()

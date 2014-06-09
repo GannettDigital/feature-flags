@@ -14,6 +14,7 @@ setup(
     ],
     scripts=[
         "bin/feature-lint",
+        "bin/feature-diff",
         "bin/features-enabled",
     ],
     dependency_links=[
