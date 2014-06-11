@@ -16,6 +16,7 @@ setup(
         "bin/feature-lint",
         "bin/feature-diff",
         "bin/features-enabled",
+        "bin/feature-transition",
     ],
     dependency_links=[
         "http://github.com/RDFLib/rdflib-jsonld/tarball/ed3241a116e551a15aa0d9c187e272ce7b636c55#egg=rdflib-jsonld",

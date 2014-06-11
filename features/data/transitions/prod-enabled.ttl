@@ -1,0 +1,12 @@
+@prefix feature: <http://services.gannettdigital.com/vocab/featureFlags#> .
+@prefix example: <http://example.com/> .
+
+example:flag1
+  feature:ticket <http://example.com/jira/browse/FEATURE-1> .
+
+example:app
+   feature:flags [
+      example:flag1 true
+   ] .
+
+<http://example.com/jira/browse/FEATURE-1> feature:status <http://example.com/jira/rest/api/2/status/3> .

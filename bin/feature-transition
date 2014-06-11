@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+import click
+from rdflib import Graph, Namespace
+import sys
+
+feature = Namespace(u"http://services.gannettdigital.com/vocab/featureFlags#")
+
+def query(g, env):
+    sparql = """
+    SELECT ?ticket ?newStatus
+    WHERE {
+       ?app feature:flags ?flags .
+       ?flags ?flag true .
+
+       ?flag feature:ticket ?ticket .
+       ?ticket feature:status ?status .
+
+       ?env feature:transitionRule ?rule .
+
+       ?rule feature:from ?fromStatusClass ;
+             feature:to ?toStatusClass .
+
+       ?status a ?fromStatusClass .
+       ?newStatus a ?toStatusClass .
+    }
+    """
+    return g.query(
+            sparql,
+            initBindings={
+                "env": env,
+            }
+        )
+
+@click.command()
+@click.option("--in-format", "-i", default="turtle")
+@click.option("--out-format", "-o", default="turtle")
+@click.argument("environment", type=click.Choice(["stage", "production"]))
+def main(in_format, out_format, environment):
+    in_g = Graph()
+    in_g.parse(sys.stdin, format=in_format)
+
+    env_map = {
+        "stage": feature.StageEnv,
+        "production": feature.ProductionEnv,
+    }
+
+    out_g = Graph(namespace_manager=in_g.namespace_manager)
+    for record in query(in_g, env_map[environment]):
+        out_g.add(
+            (record.ticket, feature.status, record.newStatus)
+        )
+    print out_g.serialize(format=out_format),
+        
+
+if __name__ == '__main__':
+    main()

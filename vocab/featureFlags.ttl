@@ -31,3 +31,40 @@ feature:ticket a owl:ObjectProperty ;
  rdfs:range feature:Ticket ;
  owl:maxCardinality 1 ; 
  rdfs:comment "The ticket URL for the feature" .
+
+feature:environment a owl:ObjectProperty ;
+  rdfs:range feature:Environment .
+
+feature:Environment a owl:Class .
+
+feature:StageEnv rdf:subClassOf feature:Environment .
+feature:ProductionEnv rdf:subClassOf feature:Environment .
+
+feature:status a owl:ObjectProperty ;
+   rdfs:range feature:Status .
+
+feature:Status a owl:Class .
+
+feature:CodeCompleteStatus rdf:subClassOf feature:Status ;
+  rdfs:comment "The feature is ready to be enabled" .
+
+feature:StagedStatus rdf:subClassOf feature:Status ;
+  rdfs:comment "The feature has been enabled in stage" .
+
+feature:InProductionStatus rdf:subClassOf feature:Status
+  rdfs:comment "The feature has been enable in production" .
+
+feature:transitionRule a owl:ObjectProperty ;
+   rdfs:domain feature:Environment ;
+   rdfs:range feature:TransitionRule ;
+   rdfs:comment "Which state to transition from and to in a particular environment" .
+
+feature:to a owl:ObjectProperty
+   rdfs:domain feature:TransitionRule ;
+   rdfs:range feature:Status ;
+   rdfs:comment "Transition to this status" .
+
+feature:from a owl:ObjectProperty
+   rdfs:domain feature:TransitionRule ;
+   rdfs:range feature:Status ;
+   rdfs:comment "Transition from this status" .

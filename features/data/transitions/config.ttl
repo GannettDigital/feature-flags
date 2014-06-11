@@ -1,0 +1,15 @@
+@prefix feature: <http://services.gannettdigital.com/vocab/featureFlags#> .
+
+<http://example.com/jira/rest/api/2/status/1> a feature:CodeCompleteStatus .
+<http://example.com/jira/rest/api/2/status/2> a feature:StagedStatus .
+<http://example.com/jira/rest/api/2/status/3> a feature:InProductionStatus .
+
+feature:StageEnv feature:transitionRule [
+   feature:from feature:CodeCompleteStatus ;
+   feature:to feature:StagedStatus 
+] .
+
+feature:ProductionEnv feature:transitionRule [
+   feature:from feature:StagedStatus ;
+   feature:to feature:InProductionStatus 
+] .
