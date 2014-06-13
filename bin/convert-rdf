@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+import click
+from rdflib.util import guess_format
+from rdflib import Graph
+import sys
+import os
+
+def _guess_format(filename):
+    _, ext = os.path.splitext(filename)
+    if ext in {".json", ".jsonld.json"}:
+        return "json-ld"
+    else:
+        return guess_format(filename)
+
+@click.command()
+@click.argument("filename", nargs=-1)
+@click.option("--out-format", "-o", default="turtle", 
+              help="out format")
+def main(filename, out_format):
+    g = Graph()
+    for fn in filename:
+        g.parse(fn, format=_guess_format(fn))
+
+    g.serialize(sys.stdout, format=out_format),
+    
+
+if __name__ == '__main__':
+    main()
