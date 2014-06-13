@@ -38,7 +38,7 @@ Given(/^we are in the "(.*?)" environment$/) do |env|
 end
 
 def transitionCmd(fromStatusSlug, enabledSlug, env)
-  cmd = "cat features/data/transitions/config.ttl features/data/transitions/#{fromStatusSlug}-#{enabledSlug}.ttl | feature-transition #{env}"
+  cmd = "cat features/data/transitions/config.ttl features/data/transitions/#{fromStatusSlug}-#{enabledSlug}.ttl | feature-transition http://example.com/jira/ #{env}"
   print cmd
   Open3.capture3(cmd)
 end

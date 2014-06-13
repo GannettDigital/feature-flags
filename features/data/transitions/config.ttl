@@ -1,15 +1,24 @@
 @prefix feature: <http://services.gannettdigital.com/vocab/featureFlags#> .
 
+<http://example.com/jira/>
+   feature:statusMapping <http://example.com/jria/rest/api/2/status/1> ;
+   feature:statusMapping <http://example.com/jria/rest/api/2/status/2> ;
+   feature:statusMapping <http://example.com/jria/rest/api/2/status/3> ;
+
+   feature:transitionRule [
+      feature:environment feature:StageEnv ;
+      feature:from feature:CodeCompleteStatus ;
+      feature:to feature:StagedStatus 
+   ] ;
+
+   feature:transitionRule [
+       feature:environment feature:ProductionEnv ;
+       feature:from feature:StagedStatus ;
+       feature:to feature:InProductionStatus 
+    ] .
+
+
 <http://example.com/jira/rest/api/2/status/1> a feature:CodeCompleteStatus .
 <http://example.com/jira/rest/api/2/status/2> a feature:StagedStatus .
 <http://example.com/jira/rest/api/2/status/3> a feature:InProductionStatus .
 
-feature:StageEnv feature:transitionRule [
-   feature:from feature:CodeCompleteStatus ;
-   feature:to feature:StagedStatus 
-] .
-
-feature:ProductionEnv feature:transitionRule [
-   feature:from feature:StagedStatus ;
-   feature:to feature:InProductionStatus 
-] .

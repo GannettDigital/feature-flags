@@ -43,6 +43,9 @@ feature:ProductionEnv rdf:subClassOf feature:Environment .
 feature:status a owl:ObjectProperty ;
    rdfs:range feature:Status .
 
+feature:statusMapping a owl:ObjectProperty ;
+   rdfs:range feature feature:Status .
+
 feature:Status a owl:Class .
 
 feature:CodeCompleteStatus rdf:subClassOf feature:Status ;
@@ -55,7 +58,6 @@ feature:InProductionStatus rdf:subClassOf feature:Status
   rdfs:comment "The feature has been enable in production" .
 
 feature:transitionRule a owl:ObjectProperty ;
-   rdfs:domain feature:Environment ;
    rdfs:range feature:TransitionRule ;
    rdfs:comment "Which state to transition from and to in a particular environment" .
 

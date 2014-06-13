@@ -1,24 +1,26 @@
 #!/usr/bin/env python
 import click
-from rdflib import Graph, Namespace
+from rdflib import Graph, Namespace, URIRef
 import sys
 
 feature = Namespace(u"http://services.gannettdigital.com/vocab/featureFlags#")
 
-def query(g, env):
+def query(g, tracker_uri, env):
     sparql = """
     SELECT ?ticket ?newStatus
     WHERE {
+
        ?app feature:flags ?flags .
        ?flags ?flag true .
 
        ?flag feature:ticket ?ticket .
        ?ticket feature:status ?status .
 
-       ?env feature:transitionRule ?rule .
+       ?trackerUri feature:transitionRule ?transition .
 
-       ?rule feature:from ?fromStatusClass ;
-             feature:to ?toStatusClass .
+       ?transition feature:environment ?env ;
+                   feature:from ?fromStatusClass ;
+                   feature:to   ?toStatusClass .
 
        ?status a ?fromStatusClass .
        ?newStatus a ?toStatusClass .
@@ -27,6 +29,7 @@ def query(g, env):
     return g.query(
             sparql,
             initBindings={
+                "trackerUri": URIRef(tracker_uri),
                 "env": env,
             }
         )
@@ -34,8 +37,9 @@ def query(g, env):
 @click.command()
 @click.option("--in-format", "-i", default="turtle")
 @click.option("--out-format", "-o", default="turtle")
+@click.argument("tracker_uri")
 @click.argument("environment", type=click.Choice(["stage", "production"]))
-def main(in_format, out_format, environment):
+def main(in_format, out_format, tracker_uri, environment):
     in_g = Graph()
     in_g.parse(sys.stdin, format=in_format)
 
@@ -45,7 +49,7 @@ def main(in_format, out_format, environment):
     }
 
     out_g = Graph(namespace_manager=in_g.namespace_manager)
-    for record in query(in_g, env_map[environment]):
+    for record in query(in_g, tracker_uri, env_map[environment]):
         out_g.add(
             (record.ticket, feature.status, record.newStatus)
         )
