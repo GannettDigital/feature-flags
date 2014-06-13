@@ -38,7 +38,7 @@ def query(g, tracker_uri, env):
 @click.option("--in-format", "-i", default="turtle")
 @click.option("--out-format", "-o", default="turtle")
 @click.argument("tracker_uri")
-@click.argument("environment", type=click.Choice(["stage", "production"]))
+@click.argument("environment", type=click.Choice(["stage", "production", "prod"]))
 def main(in_format, out_format, tracker_uri, environment):
     in_g = Graph()
     in_g.parse(sys.stdin, format=in_format)
@@ -46,6 +46,7 @@ def main(in_format, out_format, tracker_uri, environment):
     env_map = {
         "stage": feature.StageEnv,
         "production": feature.ProductionEnv,
+        "prod": feature.ProductionEnv,
     }
 
     out_g = Graph(namespace_manager=in_g.namespace_manager)
