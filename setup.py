@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name="feature-flags",
-    version="0.1.0",
+    version="0.1.1",
     install_requires=[
         "rdflib==4.1.2",
         "click==0.7",
