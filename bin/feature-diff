@@ -6,6 +6,7 @@ import click
 from rdflib import Graph, BNode, Namespace, Literal
 from collections import defaultdict
 import sys
+import os
 
 feature = Namespace("http://services.gannettdigital.com/vocab/featureFlags#")
 
@@ -42,12 +43,14 @@ def _index_changed(index):
 def main(format, out_format, before_filename, after_filename):
 
     before = Graph()
-    with open(before_filename) as fh:
-        before.parse(fh, format=format)
+    if os.path.isfile(before_filename):
+        with open(before_filename) as fh:
+            before.parse(fh, format=format)
     
     after = Graph()
-    with open(after_filename) as fh:
-        after.parse(fh, format=format)
+    if os.path.isfile(after_filename):
+        with open(after_filename) as fh:
+            after.parse(fh, format=format)
 
 
     index = defaultdict(dict)
